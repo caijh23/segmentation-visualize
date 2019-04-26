@@ -1,0 +1,29 @@
+.InputImgBox {
+  height: 170px;
+  width: 170px;
+  float: left;
+  margin-left: 70px;
+  margin-right: 70px;
+  position: relative;
+  top: 20px;
+}
+.InputImgBox  .uploadBox {
+  height: 100%;
+  width: 100%;
+}
+.InputImgBox  .uploadBox .ant-upload-select-picture-card {
+  height: 100%;
+  width: 100%;
+}
+.InputImgBox  .uploadBox .ant-upload-list-item {
+  height: 100%;
+  width: 100%;
+  border-color: chartreuse;
+}
+.InputImgBox .ImgDescription {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: -30px;
+  left: 0%;
+}
