@@ -5,7 +5,7 @@ import '../../css/imgWindow.css'
 const InputImgBox = ({input_lists}) => {
   const InputList = input_lists.map((item, idx)=>(
     <div className="InputImgBox" key={idx}>
-      <UploadBox />
+      <UploadBox index={idx}/>
       <span className="ImgDescription">{item.description}</span>
     </div>
   ))

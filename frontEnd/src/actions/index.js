@@ -14,8 +14,9 @@ export const runModel = (image_id_lists) => ({
   image_id_lists
 })
 
-export const getImageId = () => ({
-  type: UPLOAD_IMAGES
+export const getImageId = ({index, imgId}) => ({
+  type: UPLOAD_IMAGES,
+
 })
 
 export const createModel = ({input_name_lists, output_name_lists, path}) => ({

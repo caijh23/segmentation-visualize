@@ -67,7 +67,7 @@ const runModel = ({imageIds, cb}) => {
 */
 
 const createTemplate = ({data, cb}) => {
-  const  params = JSON.stringify(data)
+  const params = JSON.stringify(data)
   axios.post('/api/templates', params, {
     headers:{
       'X-CSRFToken': getCookie('csrftoken'),

@@ -16,21 +16,24 @@ class UploadBox extends Component {
   }
   handleUpload = (props) => {
     const {file} = props
-    console.log(props)
+    console.log(file.status)
     if (file.status === 'uploading') {
       this.setState({ fileExist: true })
       return
     }
     if (file.status === 'done') {
       this.setState({ fileExist: true })
+      console.log(file)
       return
     }
     if (file.status === 'error') {
       //add notice here
+      return
     }
   }
 
   handlePreview = (file) => {
+    console.log(file)
     this.setState({
       previewImage: file.url || file.thumbUrl,
       previewVisible: true,
@@ -56,6 +59,7 @@ class UploadBox extends Component {
           onChange={this.handleUpload}
           onPreview={this.handlePreview}
           onRemove={this.handleRemove}
+          action="/api/inputs"
         >
         {fileExist ? null : <UploadButton />}
         </Upload>
