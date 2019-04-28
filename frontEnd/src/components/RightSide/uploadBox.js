@@ -23,7 +23,7 @@ class UploadBox extends Component {
     }
     if (file.status === 'done') {
       this.setState({ fileExist: true })
-      console.log(file)
+      this.props.uploadDone(file.response.imgId,this.props.index)
       return
     }
     if (file.status === 'error') {
@@ -43,8 +43,8 @@ class UploadBox extends Component {
   handleCancel = () => this.setState({ previewVisible: false })
 
   handleRemove = () => {
-      console.log('remove')
       this.setState({fileExist: false})
+      this.props.uploadDone(-1,this.props.index)
   }
 
   render() {

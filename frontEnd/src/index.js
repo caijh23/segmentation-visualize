@@ -3,14 +3,21 @@ import ReactDOM from 'react-dom'
 import './css/index.css'
 import App from './components/App'
 import * as serviceWorker from './serviceWorker'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import rootReducer from './reducers'
+import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
 
-const store = createStore(rootReducer)
+const middleware = [ thunk ]
+if (process.env.NODE_ENV !== 'production') {
+  middleware.push(createLogger())
+}
 
-console.log(store.getState())
-store.subscribe(() => console.log(store.getState()))
+const store = createStore(
+  rootReducer,
+  applyMiddleware(...middleware)
+)
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-const apihost = 'http://localhost:3000'
-
 const getCookie = (name) => {
   const value = '; ' + document.cookie
   const parts = value.split('; ' + name + '=')
@@ -17,7 +15,7 @@ const getCookie = (name) => {
 */
 
 const getMenuList = (cb) => {
-  axios.get('/api/templates')
+  return axios.get('/api/templates')
     .then(cb)
     .catch(error => {
       console.log(error)
@@ -77,7 +75,6 @@ const createTemplate = ({data, cb}) => {
 }
 
 export default {
-  apihost,
   getMenuList,
   getMenuInfoById,
   runModel,

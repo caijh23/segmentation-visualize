@@ -1,8 +1,8 @@
 import { CREATE_MODEL, UPLOAD_IMAGES, CLICK_MENU_ITEM } from '../actions';
 
 const initialState = [
-  {description: '前景图像', imgId: -1},
-  {description: '背景图像', imgId: -1}
+  // {description: '前景图像', imgId: -1},
+  // {description: '背景图像', imgId: -1}
 ]
 
 const initialInput = (state = [], action) => {
@@ -30,7 +30,7 @@ const uploadInput = (state = initialState,action) => {
   switch (action.type) {
     case UPLOAD_IMAGES:
       return state.map((item, idx) => {
-        return idx === action.index ? {description: item.description, imgId: item.imgId} : item
+        return idx === action.index ? {description: item.description, imgId: action.imgId} : item
       })
     default:
       return state

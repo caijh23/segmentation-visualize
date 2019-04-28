@@ -3,14 +3,36 @@ import {
   OUTPUT_NUM_CHANGE,
   INPUT_CONTENT_CHANGE,
   OUTPUT_CONTENT_CHANGE,
-  CANCEL_MODEL
+  CANCEL_MODEL,
+  MENUS_RECEIVE
 } from '../actions'
 
 const initialState = {
-  template_lists: [],
+  template_lists: [
+    {icon: 'form', text: '创建模板', templateId: -1}
+  ],
   template_creating: {
     input_description: [''],
     output_description: ['']
+  },
+  isFetching: false
+}
+
+const handleTemplateLists = (state = initialState.template_lists, action) => {
+  switch(action.type) {
+    case MENUS_RECEIVE:
+      return [...initialState.template_lists, ...action.menu_list]
+    default:
+      return state
+  }
+}
+
+const handleIsFetching = (state = false, action) => {
+  switch(action.type) {
+    case MENUS_RECEIVE:
+      return true
+    default:
+      return state
   }
 }
 
@@ -66,7 +88,8 @@ const onOutputChange = (state = [''], action) => {
 
 const handleTemplate = (state = initialState, action) => {
   return {
-    template_lists: [],
+    isFetching: handleIsFetching(state.isFetching, action),
+    template_lists: handleTemplateLists(state.template_lists, action),
     template_creating: {
       input_description: onInputChange(state.template_creating.input_description, action),
       output_description: onOutputChange(state.template_creating.output_description, action)

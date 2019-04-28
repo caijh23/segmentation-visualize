@@ -5,10 +5,10 @@ import
   CLICK_MENU_ITEM } from '../actions'
 
 const initialState = {
-  shown: true,
+  shown: false,
   output_lists: [
-    {description: 'mask1' ,imgUrl: './assets/images/test.jpeg'},
-    {description: 'mask2', imgUrl: './assets/images/test.jpeg'}
+    // {description: 'mask1' ,imgUrl: './assets/images/test.jpeg'},
+    // {description: 'mask2', imgUrl: './assets/images/test.jpeg'}
   ]
 }
 

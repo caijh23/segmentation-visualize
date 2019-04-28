@@ -1,6 +1,8 @@
 import { connect } from 'react-redux'
 import RightSide from '../components/RightSide/rightSide'
-import { refreshOutput } from '../actions'
+import 
+  { refreshOutput,
+    getImageId } from '../actions'
 
 const mapStateToProps = (state) => ({
   input_lists: state.input_lists,
@@ -8,7 +10,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  refreshClick: () => dispatch(refreshOutput())
+  refreshClick: () => dispatch(refreshOutput()),
+  uploadDone: (imgId, index) => dispatch(getImageId({index: index, imgId: imgId}))
 })
 
 export default connect(

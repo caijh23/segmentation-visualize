@@ -5,14 +5,36 @@ import '../../css/leftSide.css'
 
 const { Sider } = Layout
 
+// const MenuList = ({menu_list, createTemplate}) => {
+//   const arrToList = menu_list.map((item, idx) => (
+//     <Menu.Item 
+//       key={idx}
+//       style={{
+//         marginTop: '10px'
+//       }}
+//       onClick={item.text === '创建模板' ? () => {createTemplate()} : null}
+//     >
+//       <Icon type={item.icon} />
+//       <span className="nav-text">{item.text}</span>
+//     </Menu.Item>
+//   ))
+//   return (
+//     <React.Fragment>
+//       {arrToList}
+//     </React.Fragment>
+//   )
+// }
 
 class LeftSide extends Component {
   state = {
     menu_list: [
-      {icon: 'form', text: '创建模板'},
-      {icon: 'line-chart', text:'假装有模型'}
+      {icon: 'form', text: '创建模板'}
     ],
     visible: false
+  }
+
+  componentDidMount() {
+    this.props.initMenu()
   }
 
   createTemplate = () => {
@@ -25,7 +47,6 @@ class LeftSide extends Component {
   }
 
   handleCancel = (e) => {
-    console.log(e)
     console.log(this.props)
     this.props.onCancelCreate()
     this.setState({visible: false})
@@ -33,7 +54,7 @@ class LeftSide extends Component {
 
   render() {
     const props = this.props
-    const MenuList = this.state.menu_list.map((item, idx) => (
+    const MenuList = props.isFetching ? props.menu_list.map((item, idx) => (
       <Menu.Item 
         key={idx}
         style={{
@@ -44,7 +65,7 @@ class LeftSide extends Component {
         <Icon type={item.icon} />
         <span className="nav-text">{item.text}</span>
       </Menu.Item>
-    ))
+    )) : (<div>Loading...</div>)
     return (
       <Sider
       breakpoint="lg"
