@@ -17,9 +17,6 @@ const getCookie = (name) => {
 const getMenuList = (cb) => {
   return axios.get('/api/templates')
     .then(cb)
-    .catch(error => {
-      console.log(error)
-    })
 }
 
 /*

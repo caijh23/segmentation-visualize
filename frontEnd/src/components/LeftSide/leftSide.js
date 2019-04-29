@@ -15,6 +15,12 @@ class LeftSide extends Component {
 
   componentDidMount() {
     this.props.initMenu()
+              .catch(error => {
+                Modal.info({
+                  title: '提示',
+                  content: '[网络错误] : 获取服务器模板列表失败　' + error
+                })
+              })
   }
 
   createTemplate = () => {
@@ -45,7 +51,7 @@ class LeftSide extends Component {
                     .catch(error => {
                       Modal.info({
                         title: '提示',
-                        content: '网络错误'
+                        content: '[网络错误] : ' + error
                       })
                     })}}
       >
