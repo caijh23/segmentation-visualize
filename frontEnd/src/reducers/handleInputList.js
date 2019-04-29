@@ -1,4 +1,8 @@
-import { UPLOAD_IMAGES, CLICK_MENU_ITEM, CANCEL_MODEL } from '../actions';
+import {
+  UPLOAD_IMAGES,
+  CLICK_MENU_ITEM,
+  CLEAR_INPUT_OUTPUT,
+  CANCEL_MODEL } from '../actions';
 
 const initialState = []
 
@@ -31,6 +35,8 @@ const handleInput = (state = initialState, action) => {
     case CLICK_MENU_ITEM:
       return getInputSize(state, action)
     case CANCEL_MODEL:
+      return []
+    case CLEAR_INPUT_OUTPUT:
       return []
     default:
       return state

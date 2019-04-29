@@ -8,7 +8,9 @@ import {
   CREATE_MODEL,
   MODEL_PATH_ON_CHANGE,
   MODEL_NAME_ON_CHANGE,
-  CLICK_MENU_ITEM
+  CLICK_MENU_ITEM,
+  CLEAR_INPUT_OUTPUT,
+  CREATE_MENU_CLICK
 } from '../actions'
 
 const initialState = {
@@ -22,7 +24,19 @@ const initialState = {
     text: ''
   },
   isFetching: false,
-  selectedId: -1
+  selectedId: -1,
+  reload: false
+}
+
+const handleReload = (state = false, action) => {
+  switch(action.type) {
+    case CLEAR_INPUT_OUTPUT:
+      return true
+    case CREATE_MENU_CLICK:
+      return false
+    default:
+      return state
+  }
 }
 
 const handleSelectedId = (state = -1, action) => {
@@ -130,6 +144,7 @@ const handleTemplate = (state = initialState, action) => {
   return {
     isFetching: handleIsFetching(state.isFetching, action),
     selectedId: handleSelectedId(state.selectedId, action),
+    reload: handleReload(state.reload, action),
     template_lists: handleTemplateLists(state.template_lists, action),
     template_creating: {
       input_lists: onInputChange(state.template_creating.input_lists, action),

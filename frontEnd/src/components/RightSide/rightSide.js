@@ -8,7 +8,7 @@ import '../../css/rightSide.css'
 
 const { Header, Content } = Layout
 
-const RightSide = ({input_lists, output, refreshClick, uploadDone, runModelClick}) => {
+const RightSide = ({reload, input_lists, output, refreshClick, uploadDone, runModelClick}) => {
   return (
     <Layout>
       <Header style={{ background: '#fff', padding: 0 }}>
@@ -35,7 +35,7 @@ const RightSide = ({input_lists, output, refreshClick, uploadDone, runModelClick
             top: '-30px',
             fontSize: '25px',
           }}
-        >暂无模板选中，请点击左侧菜单选择模板或者创建模板
+        >{reload ? null : '暂无模板选中，请点击左侧菜单选择模板或者创建模板'}
         </div> :
         <div className="outputArea">
           <PageTitle title="输出图像" type="output" />

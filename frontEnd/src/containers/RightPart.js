@@ -7,7 +7,8 @@ import
 
 const mapStateToProps = (state) => ({
   input_lists: state.input_lists,
-  output: state.output
+  output: state.output,
+  reload: state.template.reload
 })
 
 const mapDispatchToProps = (dispatch) => ({

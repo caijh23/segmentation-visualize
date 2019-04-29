@@ -24,6 +24,7 @@ class LeftSide extends Component {
   }
 
   createTemplate = () => {
+    this.props.clickCreate()
     this.setState({visible: true})
   }
 

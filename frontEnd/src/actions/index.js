@@ -13,10 +13,16 @@ export const CANCEL_MODEL = 'CANCEL_MODEL'
 export const MENUS_RECEIVE = 'MENUS_RECEIVE'
 export const MODEL_PATH_ON_CHANGE = 'MODEL_PATH_ON_CHANGE'
 export const MODEL_NAME_ON_CHANGE = 'MODEL_NAME_ON_CHANGE'
+export const CLEAR_INPUT_OUTPUT = 'CLEAR_INPUT_OUTPUT'
+export const CREATE_MENU_CLICK = 'CREATE_MENU_CLICK'
 
 const runModelReceive = (imgUrl) => ({
   type: CLICK_RUN_BUTTON,
   imgUrl
+})
+
+export const clickCreate = () => ({
+  type: CREATE_MENU_CLICK
 })
 
 export const runModelClick = () => (dispatch, getState) => {
@@ -58,12 +64,16 @@ const receiveTemplate = ({input_lists, output_lists, templateId}) => ({
   templateId
 })
 
+const clearInputAndOutput = () => ({
+  type: CLEAR_INPUT_OUTPUT
+})
+
 export const clickMenu = (menuId) => (dispatch, getState) => {
   console.log(menuId)
+  dispatch(clearInputAndOutput())
   const templateId = getState().template.template_lists[menuId].templateId
   return service.getMenuInfoById(menuId, res => {
     const data = res['data']
-    console.log(data)
     dispatch(receiveTemplate({ ...data, templateId }))
   })
 }

@@ -9,7 +9,8 @@ import {
   clickMenu,
   clickOk,
   modelPathChange,
-  modelNameChange
+  modelNameChange,
+  clickCreate
 } from '../actions'
 import LeftSide from '../components/LeftSide/leftSide'
 
@@ -30,7 +31,8 @@ const mapDispatchToProps = (dispatch) => ({
   clickMenu: (menuId) => dispatch(clickMenu(menuId)),
   clickOk: () => dispatch(clickOk()),
   inputModelName: (value) => dispatch(modelNameChange(value)),
-  inputModelPath: (value) => dispatch(modelPathChange(value))
+  inputModelPath: (value) => dispatch(modelPathChange(value)),
+  clickCreate: () => dispatch(clickCreate())
 })
 
 export default connect(

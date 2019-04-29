@@ -2,6 +2,7 @@ import
 { CLICK_REFRESH_BUTTON,
   CLICK_RUN_BUTTON,
   CLICK_MENU_ITEM,
+  CLEAR_INPUT_OUTPUT,
   CANCEL_MODEL } from '../actions'
 
 const initialState = {
@@ -15,6 +16,8 @@ const refreshOutput = (state = true, action) => {
       return false
     case CLICK_RUN_BUTTON:
       return true
+    case CLICK_MENU_ITEM:
+      return false
     default:
       return state
   }
@@ -31,6 +34,8 @@ const handleOutputLists = (state = [], action) => {
         description: item, imgUrl: ''
       }))
     case CANCEL_MODEL:
+      return []
+    case CLEAR_INPUT_OUTPUT:
       return []
     default:
       return state
