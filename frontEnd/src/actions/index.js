@@ -12,10 +12,22 @@ export const OUTPUT_CONTENT_CHANGE = 'OUTPUT_CONTENT_CHANGE'
 export const CANCEL_MODEL = 'CANCEL_MODEL'
 export const MENUS_RECEIVE = 'MENUS_RECEIVE'
 
-export const runModel = (image_id_lists) => ({
+const runModelReceive = (imgUrl) => ({
   type: CLICK_RUN_BUTTON,
-  image_id_lists
+  imgUrl
 })
+
+export const runModelClick = () => (dispatch, getState) => {
+  const image_id_state = getState().input_lists
+  const image_id_lists = image_id_state.map(item => item.imgId)
+  console.log('fetching...')
+  const data = {
+    image_id_lists
+  }
+  return service.runModel(data, res => {
+    dispatch(runModelReceive(res['data'].imgUrl))
+  })
+}
 
 export const initMenu = () => dispatch => {
   return dispatch(fetchMenus())

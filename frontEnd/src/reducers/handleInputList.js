@@ -5,7 +5,9 @@ const initialState = []
 const getInputSize = (state = [], action) => {
   switch (action.type) {
     case CLICK_MENU_ITEM:
-      return action.input_lists
+      return action.input_lists.map(item => ({
+        description: item, imgId: -1
+      }))
     default:
       return state
   }

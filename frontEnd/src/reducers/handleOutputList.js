@@ -13,6 +13,8 @@ const refreshOutput = (state = true, action) => {
   switch (action.type) {
     case CLICK_REFRESH_BUTTON:
       return false
+    case CLICK_RUN_BUTTON:
+      return true
     default:
       return state
   }
@@ -21,9 +23,13 @@ const refreshOutput = (state = true, action) => {
 const handleOutputLists = (state = [], action) => {
   switch (action.type) {
     case CLICK_RUN_BUTTON:
-      return state //add api call here
+      return state.map((item, idx) => ({
+        description: item.description, imgUrl: action.imgUrl[idx]
+      }))
     case CLICK_MENU_ITEM:
-      return action.output_lists
+      return action.output_lists.map(item => ({
+        description: item, imgUrl: ''
+      }))
     case CANCEL_MODEL:
       return []
     default:

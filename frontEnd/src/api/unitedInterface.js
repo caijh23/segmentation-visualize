@@ -40,13 +40,14 @@ const getMenuInfoById = (menuId, cb) => {
   ]
 */
 
-const runModel = ({imageIds, cb}) => {
-  const outputId = imageIds.join('_')
-  axios.get('/api/outputs/' + outputId)
-    .then(cb)
-    .catch(error => {
-      console.log(error)
-    })
+const runModel = (image_id_lists, cb) => {
+  const params = JSON.stringify(image_id_lists)
+  return axios.post('/api/outputs', params, {
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'content-type': 'application/json'
+    }
+  }).then(cb)
 }
 
 /*
