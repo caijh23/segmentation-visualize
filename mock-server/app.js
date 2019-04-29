@@ -2,7 +2,7 @@ const Koa = require('koa');
 
 const app = new Koa();
 
-const formidable = require('koa2-formidable')
+const formidable = require('koa2-formidable');
 
 const bodyParser = require('koa-bodyparser');
 
@@ -20,24 +20,14 @@ var mock_db = {
     {
       text: '假装有模型',
       templateId: 1,
-      input_lists : [
-        {description: '前景图像', imgId: -1},
-        {description: '背景图像', imgId: -1}
-      ],
-      output_lists: [
-        {description: 'mask1' ,imgUrl: ''},
-        {description: 'mask2', imgUrl: ''}
-      ]
+      input_lists : ['前景图像', '背景图像'],
+      output_lists: ['mask1', 'mask2']
     },
     {
       text: '测试模型二',
       templateId: 2,
-      input_lists : [
-        {description: '输入图像', imgId: -1},
-      ],
-      output_lists: [
-        {description: 'mask' ,imgUrl: ''}
-      ]
+      input_lists : ['输入图像'],
+      output_lists: ['分割图像']
     }
   ],
 
@@ -73,19 +63,10 @@ router.get('/templates/:id', async (ctx, next) => {
 })
 
 router.post('/templates', async (ctx, next) => {
-  let {body} = ctx.request
+  let {body} = ctx.request;
   const length = mock_db.template_lists.length;
-  const input_lists = body.input_lists.map((item) => ({
-    description: item,
-    imgId: -1
-  }))
-  const output_lists = body.output_lists.map((item) => ({
-    description: item,
-    imgUrl: ''
-  }))
   const template_to_add = {
-    input_lists,
-    output_lists,
+    ...body,
     text: '测试创建模型',
     templateId: length + 1
   }
@@ -97,6 +78,18 @@ router.post('/templates', async (ctx, next) => {
   }
   ctx.response.body = JSON.stringify(json);
   console.log(mock_db)
+})
+
+router.post('/outputs', async (ctx, next) => {
+  let {body} = ctx.request;
+  const length = body.image_id_lists.length
+  console.log('input length : ',length)
+  const retArr = new Array(length).fill('https://img.hookbase.com/img2017/5/5/2017050558561345.jpg');
+  const json = {
+    imgUrl: retArr
+  };
+  ctx.set("Content-Type", "application/json");
+  ctx.response.body = JSON.stringify(json);
 })
 
 app.use(router.routes());
