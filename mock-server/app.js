@@ -55,7 +55,7 @@ router.get('/templates/:id', async (ctx, next) => {
   const id = ctx.params.id;
   const json = {
     input_lists: mock_db.template_lists[id - 1].input_lists,
-    output_lists: mock_db.template_lists[id - 1].output_lists
+    output_lists: mock_db.template_lists[id - 1].output_lists,
   };
   console.log(json)
   ctx.set("Content-Type", "application/json");
@@ -67,7 +67,6 @@ router.post('/templates', async (ctx, next) => {
   const length = mock_db.template_lists.length;
   const template_to_add = {
     ...body,
-    text: '测试创建模型',
     templateId: length + 1
   }
   mock_db.template_lists.push(template_to_add);
@@ -82,6 +81,7 @@ router.post('/templates', async (ctx, next) => {
 
 router.post('/outputs', async (ctx, next) => {
   let {body} = ctx.request;
+  console.log(body)
   const length = body.image_id_lists.length
   console.log('input length : ',length)
   const retArr = new Array(length).fill('https://img.hookbase.com/img2017/5/5/2017050558561345.jpg');
