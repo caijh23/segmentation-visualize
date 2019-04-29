@@ -1,7 +1,6 @@
 import 
 { CLICK_REFRESH_BUTTON,
   CLICK_RUN_BUTTON,
-  CREATE_MODEL,
   CLICK_MENU_ITEM,
   CANCEL_MODEL } from '../actions'
 
@@ -21,11 +20,6 @@ const refreshOutput = (state = true, action) => {
 
 const handleOutputLists = (state = [], action) => {
   switch (action.type) {
-    case CREATE_MODEL:
-      return action.output_name_lists.map((item) => ({
-        description: item,
-        imgUrl: ''
-      }))
     case CLICK_RUN_BUTTON:
       return state //add api call here
     case CLICK_MENU_ITEM:

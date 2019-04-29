@@ -1,18 +1,6 @@
-import { CREATE_MODEL, UPLOAD_IMAGES, CLICK_MENU_ITEM, CANCEL_MODEL } from '../actions';
+import { UPLOAD_IMAGES, CLICK_MENU_ITEM, CANCEL_MODEL } from '../actions';
 
 const initialState = []
-
-const initialInput = (state = [], action) => {
-  switch (action.type) {
-    case CREATE_MODEL:
-      return action.input_name_lists.map((item) => ({
-        description: item,
-        id: ''
-      }))
-    default:
-      return state
-  }
-}
 
 const getInputSize = (state = [], action) => {
   switch (action.type) {
@@ -36,8 +24,6 @@ const uploadInput = (state = initialState,action) => {
 
 const handleInput = (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_MODEL:
-      return initialInput(state, action)
     case UPLOAD_IMAGES:
       return uploadInput(state, action)
     case CLICK_MENU_ITEM:

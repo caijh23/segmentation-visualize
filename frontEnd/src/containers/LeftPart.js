@@ -6,13 +6,14 @@ import {
   outputContentChange,
   cancelCreateModel,
   initMenu,
-  clickMenu
+  clickMenu,
+  clickOk
 } from '../actions'
 import LeftSide from '../components/LeftSide/leftSide'
 
 const mapStateToProps = (state) => ({
-  input_description: state.template.template_creating.input_description,
-  output_description: state.template.template_creating.output_description,
+  input_lists: state.template.template_creating.input_lists,
+  output_lists: state.template.template_creating.output_lists,
   menu_list: state.template.template_lists,
   isFetching: state.template.isFetching
 })
@@ -24,7 +25,8 @@ const mapDispatchToProps = (dispatch) => ({
   onWriteOutputDesc: (value, index) => dispatch(outputContentChange({value: value, index: index})),
   onCancelCreate: () => dispatch(cancelCreateModel()),
   initMenu: () => dispatch(initMenu()),
-  clickMenu: (menuId) => dispatch(clickMenu(menuId))
+  clickMenu: (menuId) => dispatch(clickMenu(menuId)),
+  clickOk: () => dispatch(clickOk())
 })
 
 export default connect(

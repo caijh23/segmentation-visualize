@@ -18,18 +18,18 @@ const InputTemplate = ({
   onChangeOutput,
   onWriteInputDesc,
   onWriteOutputDesc,
-  input_description,
-  output_description
+  input_lists,
+  output_lists
 }) => {
   return (
     <div>
       <span>输入图像数目 : </span>
       <InputNumber min={1} max={3} defaultValue={1} onChange={onChangeInput} />
-      <DescList arr={input_description} callfunc={onWriteInputDesc}/>
+      <DescList arr={input_lists} callfunc={onWriteInputDesc}/>
       <div style={{height: '10px'}}/>
       <span>输出图像数目 : </span>
       <InputNumber min={1} max={3} defaultValue={1} onChange={onChangeOutput} />
-      <DescList arr={output_description} callfunc={onWriteOutputDesc}/>
+      <DescList arr={output_lists} callfunc={onWriteOutputDesc}/>
     </div>
   )
 }

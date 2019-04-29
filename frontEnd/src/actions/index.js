@@ -42,9 +42,27 @@ const receiveTemplate = ({input_lists, output_lists}) => ({
 })
 
 export const clickMenu = (menuId) => dispatch => {
+  console.log('fetching...')
   return service.getMenuInfoById(menuId, res => {
     const data = res['data']
+    console.log(data)
     dispatch(receiveTemplate({ ...data }))
+  })
+}
+
+const createModel = ({template_created}) => ({
+  type: CREATE_MODEL,
+  template_created
+})
+
+export const clickOk = () => (dispatch, getState) => {
+  const data = getState().template.template_creating
+  console.log('fetching data...')
+  return service.createTemplate(data, res => {
+    console.log(res['data'])
+    const templateFromService = {...res['data'], icon: 'line-chart'}
+    console.log(templateFromService)
+    dispatch(createModel({template_created: templateFromService}))
   })
 }
 
@@ -52,13 +70,6 @@ export const getImageId = ({index, imgId}) => ({
   type: UPLOAD_IMAGES,
   index,
   imgId
-})
-
-export const createModel = ({input_name_lists, output_name_lists, path}) => ({
-  type: CREATE_MODEL,
-  input_name_lists,
-  output_name_lists,
-  path
 })
 
 export const inputNumChange = (value) => ({

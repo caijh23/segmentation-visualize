@@ -28,12 +28,11 @@ class LeftSide extends Component {
   }
 
   handleOk = (e) => {
-    console.log(e)
+    this.props.clickOk()
     this.setState({visible: false})
   }
 
   handleCancel = (e) => {
-    console.log(this.props)
     this.props.onCancelCreate()
     this.setState({visible: false})
   }
