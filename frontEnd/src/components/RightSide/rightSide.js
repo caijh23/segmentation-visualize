@@ -12,7 +12,9 @@ const RightSide = ({input_lists, output, refreshClick, uploadDone, runModelClick
   return (
     <Layout>
       <Header style={{ background: '#fff', padding: 0 }}>
-        <ButtonList refreshClick={refreshClick} runModelClick={runModelClick}/>
+        { input_lists.length !== 0 ?
+        <ButtonList refreshClick={refreshClick} runModelClick={runModelClick}/> : null
+        }
       </Header>
       <Content style={{
         margin: '24px 20px 0px 20px', padding: '1px', background: '#fff', minHeight: 280,

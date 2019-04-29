@@ -79,6 +79,7 @@ class LeftSide extends Component {
             visible={this.state.visible}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
+            centered
           >
             {this.state.visible ? <InputTemplate {...props} /> : null}
           </Modal>

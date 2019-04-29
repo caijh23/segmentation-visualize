@@ -11,6 +11,8 @@ export const INPUT_CONTENT_CHANGE = 'INPUT_CONTENT_CHANGE'
 export const OUTPUT_CONTENT_CHANGE = 'OUTPUT_CONTENT_CHANGE'
 export const CANCEL_MODEL = 'CANCEL_MODEL'
 export const MENUS_RECEIVE = 'MENUS_RECEIVE'
+export const MODEL_PATH_ON_CHANGE = 'MODEL_PATH_ON_CHANGE'
+export const MODEL_NAME_ON_CHANGE = 'MODEL_NAME_ON_CHANGE'
 
 const runModelReceive = (imgUrl) => ({
   type: CLICK_RUN_BUTTON,
@@ -18,11 +20,13 @@ const runModelReceive = (imgUrl) => ({
 })
 
 export const runModelClick = () => (dispatch, getState) => {
-  const image_id_state = getState().input_lists
-  const image_id_lists = image_id_state.map(item => item.imgId)
+  const image_state = getState().input_lists
+  const image_id_lists = image_state.map(item => item.imgId)
+  const templateId = getState().template.selectedId
   console.log('fetching...')
   const data = {
-    image_id_lists
+    image_id_lists,
+    templateId
   }
   return service.runModel(data, res => {
     dispatch(runModelReceive(res['data'].imgUrl))
@@ -47,18 +51,20 @@ const fetchMenus = () => dispatch => {
   })
 }
 
-const receiveTemplate = ({input_lists, output_lists}) => ({
+const receiveTemplate = ({input_lists, output_lists, templateId}) => ({
   type: CLICK_MENU_ITEM,
   input_lists,
-  output_lists
+  output_lists,
+  templateId
 })
 
-export const clickMenu = (menuId) => dispatch => {
-  console.log('fetching...')
+export const clickMenu = (menuId) => (dispatch, getState) => {
+  console.log(menuId)
+  const templateId = getState().template.template_lists[menuId].templateId
   return service.getMenuInfoById(menuId, res => {
     const data = res['data']
     console.log(data)
-    dispatch(receiveTemplate({ ...data }))
+    dispatch(receiveTemplate({ ...data, templateId }))
   })
 }
 
@@ -100,10 +106,20 @@ export const inputContentChanage = ({value, index}) => ({
   index
 })
 
-export const  outputContentChange = ({value, index}) => ({
+export const outputContentChange = ({value, index}) => ({
   type: OUTPUT_CONTENT_CHANGE,
   value,
   index
+})
+
+export const modelPathChange = (value) => ({
+  type: MODEL_PATH_ON_CHANGE,
+  value
+})
+
+export const modelNameChange = (value) => ({
+  type: MODEL_NAME_ON_CHANGE,
+  value
 })
 
 export const cancelCreateModel = () => ({

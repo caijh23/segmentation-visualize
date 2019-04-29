@@ -7,7 +7,9 @@ import {
   cancelCreateModel,
   initMenu,
   clickMenu,
-  clickOk
+  clickOk,
+  modelPathChange,
+  modelNameChange
 } from '../actions'
 import LeftSide from '../components/LeftSide/leftSide'
 
@@ -26,7 +28,9 @@ const mapDispatchToProps = (dispatch) => ({
   onCancelCreate: () => dispatch(cancelCreateModel()),
   initMenu: () => dispatch(initMenu()),
   clickMenu: (menuId) => dispatch(clickMenu(menuId)),
-  clickOk: () => dispatch(clickOk())
+  clickOk: () => dispatch(clickOk()),
+  inputModelName: (value) => dispatch(modelNameChange(value)),
+  inputModelPath: (value) => dispatch(modelPathChange(value))
 })
 
 export default connect(

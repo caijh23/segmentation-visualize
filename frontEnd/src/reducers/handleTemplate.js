@@ -5,7 +5,10 @@ import {
   OUTPUT_CONTENT_CHANGE,
   CANCEL_MODEL,
   MENUS_RECEIVE,
-  CREATE_MODEL
+  CREATE_MODEL,
+  MODEL_PATH_ON_CHANGE,
+  MODEL_NAME_ON_CHANGE,
+  CLICK_MENU_ITEM
 } from '../actions'
 
 const initialState = {
@@ -14,9 +17,43 @@ const initialState = {
   ],
   template_creating: {
     input_lists: [''],
-    output_lists: ['']
+    output_lists: [''],
+    path: '',
+    text: ''
   },
-  isFetching: false
+  isFetching: false,
+  selectedId: -1
+}
+
+const handleSelectedId = (state = -1, action) => {
+  switch(action.type) {
+    case CLICK_MENU_ITEM:
+      return action.templateId
+    case CANCEL_MODEL:
+      return -1
+    case CREATE_MODEL:
+      return -1
+    default:
+      return state
+  }
+}
+
+const handlePath = (state = '', action) => {
+  switch(action.type) {
+    case MODEL_PATH_ON_CHANGE:
+      return action.value
+    default:
+      return state
+  }
+}
+
+const handleName = (state = '', action) => {
+  switch(action.type) {
+    case MODEL_NAME_ON_CHANGE:
+      return action.value
+    default:
+      return state
+  }
 }
 
 const handleTemplateLists = (state = initialState.template_lists, action) => {
@@ -92,10 +129,13 @@ const onOutputChange = (state = [''], action) => {
 const handleTemplate = (state = initialState, action) => {
   return {
     isFetching: handleIsFetching(state.isFetching, action),
+    selectedId: handleSelectedId(state.selectedId, action),
     template_lists: handleTemplateLists(state.template_lists, action),
     template_creating: {
       input_lists: onInputChange(state.template_creating.input_lists, action),
-      output_lists: onOutputChange(state.template_creating.output_lists, action)
+      output_lists: onOutputChange(state.template_creating.output_lists, action),
+      path: handlePath(state.template_creating.path, action),
+      text: handleName(state.template_creating.text, action)
     }
   }
 }
