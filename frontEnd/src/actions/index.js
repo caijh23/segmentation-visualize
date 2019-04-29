@@ -35,6 +35,19 @@ const fetchMenus = () => dispatch => {
   })
 }
 
+const receiveTemplate = ({input_lists, output_lists}) => ({
+  type: CLICK_MENU_ITEM,
+  input_lists,
+  output_lists
+})
+
+export const clickMenu = (menuId) => dispatch => {
+  return service.getMenuInfoById(menuId, res => {
+    const data = res['data']
+    dispatch(receiveTemplate({ ...data }))
+  })
+}
+
 export const getImageId = ({index, imgId}) => ({
   type: UPLOAD_IMAGES,
   index,
@@ -72,11 +85,6 @@ export const  outputContentChange = ({value, index}) => ({
 
 export const cancelCreateModel = () => ({
   type: CANCEL_MODEL
-})
-
-export const clickMenu = (menuId) => ({
-  type: CLICK_MENU_ITEM,
-  menuId
 })
 
 export const refreshOutput = () => ({

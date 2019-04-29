@@ -5,7 +5,8 @@ import {
   inputContentChanage,
   outputContentChange,
   cancelCreateModel,
-  initMenu
+  initMenu,
+  clickMenu
 } from '../actions'
 import LeftSide from '../components/LeftSide/leftSide'
 
@@ -22,7 +23,8 @@ const mapDispatchToProps = (dispatch) => ({
   onWriteInputDesc: (value, index) => dispatch(inputContentChanage({value: value, index: index})),
   onWriteOutputDesc: (value, index) => dispatch(outputContentChange({value: value, index: index})),
   onCancelCreate: () => dispatch(cancelCreateModel()),
-  initMenu: () => dispatch(initMenu())
+  initMenu: () => dispatch(initMenu()),
+  clickMenu: (menuId) => dispatch(clickMenu(menuId))
 })
 
 export default connect(

@@ -1,9 +1,6 @@
-import { CREATE_MODEL, UPLOAD_IMAGES, CLICK_MENU_ITEM } from '../actions';
+import { CREATE_MODEL, UPLOAD_IMAGES, CLICK_MENU_ITEM, CANCEL_MODEL } from '../actions';
 
-const initialState = [
-  // {description: '前景图像', imgId: -1},
-  // {description: '背景图像', imgId: -1}
-]
+const initialState = []
 
 const initialInput = (state = [], action) => {
   switch (action.type) {
@@ -20,7 +17,7 @@ const initialInput = (state = [], action) => {
 const getInputSize = (state = [], action) => {
   switch (action.type) {
     case CLICK_MENU_ITEM:
-      return state // call api here to get input_name_lists
+      return action.input_lists
     default:
       return state
   }
@@ -45,6 +42,8 @@ const handleInput = (state = initialState, action) => {
       return uploadInput(state, action)
     case CLICK_MENU_ITEM:
       return getInputSize(state, action)
+    case CANCEL_MODEL:
+      return []
     default:
       return state
   }

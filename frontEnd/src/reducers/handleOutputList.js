@@ -2,14 +2,12 @@ import
 { CLICK_REFRESH_BUTTON,
   CLICK_RUN_BUTTON,
   CREATE_MODEL,
-  CLICK_MENU_ITEM } from '../actions'
+  CLICK_MENU_ITEM,
+  CANCEL_MODEL } from '../actions'
 
 const initialState = {
   shown: false,
-  output_lists: [
-    // {description: 'mask1' ,imgUrl: './assets/images/test.jpeg'},
-    // {description: 'mask2', imgUrl: './assets/images/test.jpeg'}
-  ]
+  output_lists: []
 }
 
 const refreshOutput = (state = true, action) => {
@@ -31,7 +29,9 @@ const handleOutputLists = (state = [], action) => {
     case CLICK_RUN_BUTTON:
       return state //add api call here
     case CLICK_MENU_ITEM:
-      return state // call api here to get output_name_lists
+      return action.output_lists
+    case CANCEL_MODEL:
+      return []
     default:
       return state
   }

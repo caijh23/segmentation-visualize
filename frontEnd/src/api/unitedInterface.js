@@ -25,19 +25,14 @@ const getMenuList = (cb) => {
 /*
   return example
   {
-    "id": 0,
-    "name": "假装有模型",
     "input_lists": ["前景","背景"],
     "output_lists": ["mask1","mask2"]
   }
 */
 
-const getMenuInfoById = ({id, cb}) => {
-  axios.get('/api/templates/' + id)
+const getMenuInfoById = (menuId, cb) => {
+  return axios.get('/api/templates/' + menuId)
     .then(cb)
-    .catch(error => {
-      console.log(error)
-    })
 }
 
 /*

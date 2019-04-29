@@ -5,26 +5,6 @@ import '../../css/leftSide.css'
 
 const { Sider } = Layout
 
-// const MenuList = ({menu_list, createTemplate}) => {
-//   const arrToList = menu_list.map((item, idx) => (
-//     <Menu.Item 
-//       key={idx}
-//       style={{
-//         marginTop: '10px'
-//       }}
-//       onClick={item.text === '创建模板' ? () => {createTemplate()} : null}
-//     >
-//       <Icon type={item.icon} />
-//       <span className="nav-text">{item.text}</span>
-//     </Menu.Item>
-//   ))
-//   return (
-//     <React.Fragment>
-//       {arrToList}
-//     </React.Fragment>
-//   )
-// }
-
 class LeftSide extends Component {
   state = {
     menu_list: [
@@ -60,7 +40,14 @@ class LeftSide extends Component {
         style={{
           marginTop: '10px'
         }}
-        onClick={item.text === '创建模板' ? () => {this.createTemplate()} : null}
+        onClick={item.text === '创建模板' ? () => {this.createTemplate()} : 
+        () => {props.clickMenu(item.templateId)
+                    .catch(error => {
+                      Modal.info({
+                        title: '提示',
+                        content: '网络错误'
+                      })
+                    })}}
       >
         <Icon type={item.icon} />
         <span className="nav-text">{item.text}</span>
