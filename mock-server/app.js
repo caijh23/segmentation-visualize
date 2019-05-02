@@ -34,10 +34,12 @@ var mock_db = {
 }
 
 router.post('/inputs', async (ctx, next) => {
+  console.log(ctx)
   const json = {
     imgId: 1
   };
   ctx.set("Content-Type", "application/json");
+  console.log(json)
   ctx.response.body = JSON.stringify(json);
 });
 
@@ -48,6 +50,7 @@ router.get('/templates', async (ctx, next) => {
     }))
   }
   ctx.set("Content-Type", "application/json");
+  console.log(json)
   ctx.response.body = JSON.stringify(json);
 })
 
@@ -57,13 +60,14 @@ router.get('/templates/:id', async (ctx, next) => {
     input_lists: mock_db.template_lists[id - 1].input_lists,
     output_lists: mock_db.template_lists[id - 1].output_lists,
   };
-  console.log(json)
   ctx.set("Content-Type", "application/json");
+  console.log(json);
   ctx.response.body = JSON.stringify(json);
 })
 
 router.post('/templates', async (ctx, next) => {
   let {body} = ctx.request;
+  console.log(body);
   const length = mock_db.template_lists.length;
   const template_to_add = {
     ...body,
@@ -75,8 +79,8 @@ router.post('/templates', async (ctx, next) => {
     text: mock_db.template_lists[length].text,
     templateId: mock_db.template_lists[length].templateId
   }
+  console.log(json);
   ctx.response.body = JSON.stringify(json);
-  console.log(mock_db)
 })
 
 router.post('/outputs', async (ctx, next) => {
@@ -89,6 +93,7 @@ router.post('/outputs', async (ctx, next) => {
     imgUrl: retArr
   };
   ctx.set("Content-Type", "application/json");
+  console.log(json);
   ctx.response.body = JSON.stringify(json);
 })
 
