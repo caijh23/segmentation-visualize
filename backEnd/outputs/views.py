@@ -4,11 +4,11 @@ from rest_framework.parsers import JSONParser
 from outputs.models import *
 from inputs.models import ImgInput
 from templates.models import Template
-import imp
 import io
 import sys
 from PIL import Image
 from django.core.files.uploadedfile import InMemoryUploadedFile
+import network_instance
 
 format_table = {
 	'JPEG': 'image/jpeg',
@@ -24,13 +24,14 @@ def output_list(request):
 		templateId = data['templateId']
 		try:
 			template = Template.objects.get(pk=templateId)
-			mod = imp.load_source("Predict",template.path)
-			predict = mod.Predict()
+
 			input_filenames = list(map(lambda id : ImgInput.objects.get(pk=id).filename.split('.')[0],image_id_lists))
 			input_imgs = list(map(lambda id : ImgInput.objects.get(pk=id).img.file.name, image_id_lists))
-			output_imgs, out_format = predict.runModel(input_imgs)
+
+			output_imgs, out_format = network_instance.runModel(templateId - 1,input_imgs)
 			output_prefix = '_'.join(input_filenames) + '_' + template.text + '_'
 			imgUrl = []
+
 			for index, matrix in enumerate(output_imgs):
 				thumb_io = io.BytesIO()
 				image = Image.fromarray(matrix)
@@ -41,6 +42,7 @@ def output_list(request):
 				thumb_file = InMemoryUploadedFile(thumb_io,None,filename,format_str,sys.getsizeof(thumb_io),None)
 				outputimg = ImgOutput(img=thumb_file,filename=filename)
 				outputimg.save()
+				thumb_io.close()
 				imgUrl.append('./api' + outputimg.img.url)
 		except Template.DoesNotExist:
 			return HttpResponse(status=404)

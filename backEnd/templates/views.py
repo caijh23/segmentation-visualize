@@ -4,6 +4,9 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from templates.models import *
 from templates.serializers import *
+import network_instance
+
+network_instance.initModels(Template.objects.all())
 
 @csrf_exempt
 def template_list(request):
@@ -14,6 +17,7 @@ def template_list(request):
 		return JsonResponse({'template_lists': serializer.data})
 	elif  request.method == 'POST':
 		data = JSONParser().parse(request)
+		network_instance.addModel(data['path'], data['text'])
 		try:
 			newTemplate = Template()
 			newTemplate.text = data['text']
